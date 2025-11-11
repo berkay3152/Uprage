@@ -46,7 +46,7 @@ async function checkUpgrades() {
 checkUpgrades();
 
 // Her 5 dakikada bir tekrar çalıştır
-setInterval(checkUpgrades, 5 * 60 * 1000);
+setInterval(checkUpgrades, 10*1000);
 
 // Render'ın uygulamayı açık tutması için sahte port aç
 require('http').createServer((req, res) => {
