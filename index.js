@@ -19,11 +19,10 @@ async function checkUpgrades() {
     });
 
     for (const car of data) {
-      // Sadece upgradeEndTimestamp > 0 olanları güncelle
       if (car.upgradeEndTimestamp > 0) {
         const updated = {
           level: car.level + 1,
-          upgradeEndTimestamp: 0 // tekrar seviye almasını engelle
+          upgradeEndTimestamp: 0
         };
 
         await axios.patch(`${SUPABASE_URL}?id=eq.${car.id}`, updated, {
@@ -45,11 +44,5 @@ async function checkUpgrades() {
 // İlk çalıştırma
 checkUpgrades();
 
-// Her 5 dakikada bir tekrar çalıştır
-setInterval(checkUpgrades, 10*1000);
-
-// Render'ın uygulamayı açık tutması için sahte port aç
-require('http').createServer((req, res) => {
-  res.end("Bot aktif");
-}).listen(3000);
-
+// Her 10 saniyede bir tekrar çalıştır
+setInterval(checkUpgrades, 10 * 1000);
