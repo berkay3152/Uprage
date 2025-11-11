@@ -6,33 +6,41 @@ const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsIn
 async function checkUpgrades() {
   const now = Math.floor(Date.now() / 1000);
 
-  const { data } = await axios.get(SUPABASE_URL, {
-    params: {
-      upgradeEndTimestamp: `lt.${now}`,
-      level: `not.is.null`
-    },
-    headers: {
-      apikey: API_KEY,
-      Authorization: `Bearer ${API_KEY}`
-    }
-  });
-
-  for (const car of data) {
-    const updated = {
-      level: car.level + 1,
-      upgradeEndTimestamp: 0
-    };
-
-    await axios.patch(`${SUPABASE_URL}?id=eq.${car.id}`, updated, {
+  try {
+    const { data } = await axios.get(SUPABASE_URL, {
+      params: {
+        upgradeEndTimestamp: `lt.${now}`,
+        level: `not.is.null`
+      },
       headers: {
         apikey: API_KEY,
-        Authorization: `Bearer ${API_KEY}`,
-        'Content-Type': 'application/json'
+        Authorization: `Bearer ${API_KEY}`
       }
     });
 
-    console.log(`✅ Güncellendi: ${car.display_name} → Level ${updated.level}`);
+    for (const car of data) {
+      const updated = {
+        level: car.level + 1,
+        upgradeEndTimestamp: 0
+      };
+
+      await axios.patch(`${SUPABASE_URL}?id=eq.${car.id}`, updated, {
+        headers: {
+          apikey: API_KEY,
+          Authorization: `Bearer ${API_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log(`✅ Güncellendi: ${car.display_name} → Level ${updated.level}`);
+    }
+  } catch (err) {
+    console.error("❌ Supabase isteği başarısız:", err.message);
   }
 }
 
+// İlk çalıştırma
 checkUpgrades();
+
+// Her 5 dakikada bir tekrar çalıştır
+setInterval(checkUpgrades, 5 * 60 * 1000);
