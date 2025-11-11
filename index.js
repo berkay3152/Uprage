@@ -49,4 +49,7 @@ checkUpgrades();
 setInterval(checkUpgrades, 5 * 60 * 1000);
 
 // Render'ın uygulamayı açık tutması için sahte port aç
-require('http').createServer(() => {}).listen(3000);
+require('http').createServer((req, res) => {
+  res.end("Bot aktif");
+}).listen(3000);
+
