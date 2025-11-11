@@ -44,3 +44,5 @@ checkUpgrades();
 
 // Her 5 dakikada bir tekrar çalıştır
 setInterval(checkUpgrades, 5 * 60 * 1000);
+
+require('http').createServer(() => {}).listen(3000);
