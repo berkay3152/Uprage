@@ -1,4 +1,3 @@
-require('dotenv').config();
 const axios = require('axios');
 
 const SUPABASE_URL = 'https://ftvfrivqwedvaptmxiqw.supabase.co/rest/v1/Gallery';
