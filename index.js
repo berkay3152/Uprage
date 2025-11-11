@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const SUPABASE_URL = 'https://ftvfrivqwedvaptmxiqw.supabase.co/rest/v1/Gallery';
-const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // Güvenlik için kısaltıldı
+const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dmZyaXZxd2VkdmFwdG14aXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzNzEzMzMsImV4cCI6MjA3Nzk0NzMzM30.k6e4_PJCB2RPYmuKYqgzdrxQF-shXftcrP4kLhLtt1s'; // Güvenlik için kısaltıldı
 
 async function checkUpgrades() {
   const now = Math.floor(Date.now() / 1000);
