@@ -8,7 +8,7 @@ async function checkUpgrades() {
 
   const { data } = await axios.get(SUPABASE_URL, {
     params: {
-      upgradeendtimestamp: `lt.${now}`,
+      upgradeEndTimestamp: `lt.${now}`,
       level: `not.is.null`
     },
     headers: {
@@ -20,7 +20,7 @@ async function checkUpgrades() {
   for (const car of data) {
     const updated = {
       level: car.level + 1,
-      upgrade_end_timestamp: 0
+      upgradeEndTimestamp: 0
     };
 
     await axios.patch(`${SUPABASE_URL}?id=eq.${car.id}`, updated, {
