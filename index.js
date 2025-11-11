@@ -46,3 +46,8 @@ checkUpgrades();
 
 // Her 10 saniyede bir tekrar çalıştır
 setInterval(checkUpgrades, 10 * 1000);
+
+require('http').createServer((req, res) => {
+  res.end("Bot aktif");
+}).listen(process.env.PORT || 3000);
+
