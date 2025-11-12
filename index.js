@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const SUPABASE_URL = 'https://ftvfrivqwedvaptmxiqw.supabase.co/rest/v1/Gallery';
-const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dmZyaXZxd2VkdmFwdG14aXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzNzEzMzMsImV4cCI6MjA3Nzk0NzMzM30.k6e4_PJCB2RPYmuKYqgzdrxQF-shXftcrP4kLhLtt1s'; // Güvenlik için kısaltıldı
+const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // kısaltıldı
 
 async function checkUpgrades() {
   const now = Math.floor(Date.now() / 1000);
@@ -22,7 +22,9 @@ async function checkUpgrades() {
       if (car.upgradeEndTimestamp > 0) {
         const updated = {
           level: car.level + 1,
-          upgradeEndTimestamp: 0
+          upgradeEndTimestamp: 0,
+          motor_gucu: car.motor_gucu + 10,       // ✅ motor gücü artışı
+          maksimum_hiz: car.maksimum_hiz + 5     // ✅ hız artışı (isteğe bağlı)
         };
 
         await axios.patch(`${SUPABASE_URL}?id=eq.${car.id}`, updated, {
@@ -33,7 +35,7 @@ async function checkUpgrades() {
           }
         });
 
-        console.log(`✅ Güncellendi: ${car.display_name} → Level ${updated.level}`);
+        console.log(`✅ Güncellendi: ${car.display_name} → Level ${updated.level}, Motor Gücü ${updated.motor_gucu}`);
       }
     }
   } catch (err) {
@@ -47,7 +49,7 @@ checkUpgrades();
 // Her 10 saniyede bir tekrar çalıştır
 setInterval(checkUpgrades, 10 * 1000);
 
+// Bot sunucusu
 require('http').createServer((req, res) => {
   res.end("Bot aktif");
 }).listen(process.env.PORT || 3000);
-
