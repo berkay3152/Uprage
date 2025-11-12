@@ -23,7 +23,7 @@ async function checkUpgrades() {
         const updated = {
           level: car.level + 1,
           upgradeEndTimestamp: 0,
-          motor_gucu: car.motor_gucu + 10,       // ✅ motor gücü artışı
+          motor_gucu: car.motor_gucu + 30,       // ✅ motor gücü artışı
           maksimum_hiz: car.maksimum_hiz + 5     // ✅ hız artışı (isteğe bağlı)
         };
 
